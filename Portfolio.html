@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Aura Studio | Our Portfolio</title>
+    <!-- ใช้ Font ชุดเดียวกับหน้าหลัก -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-light: #f8f9fa;
+            --midnight-navy: #001d3d;
+            --luxury-gold: #c5a059;
+            --apple-blue: #007aff;
+            --glass-white: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-dark: #1d1d1f;
+            --text-muted: #86868b;
+            --spring: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif;
+            padding-bottom: 120px;
+            line-height: 1.6;
+        }
+
+        /* Ambient Background */
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 80% 20%, rgba(0, 122, 255, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 20% 80%, rgba(197, 160, 89, 0.06) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 80px 24px 40px;
+        }
+
+        /* Header Style */
+        .port-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .pre-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--luxury-gold);
+            margin-bottom: 16px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .port-header h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 200;
+            letter-spacing: -1.5px;
+            color: var(--midnight-navy);
+            line-height: 1.2;
+        }
+
+        .port-header h1 b {
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--midnight-navy) 0%, var(--luxury-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Filter Tabs */
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 60px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid rgba(0, 29, 61, 0.1);
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-family: inherit;
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.4s var(--spring);
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--luxury-gold);
+            color: var(--midnight-navy);
+        }
+
+        .filter-btn.active {
+            background: var(--midnight-navy);
+            color: #fff;
+            border-color: var(--midnight-navy);
+            box-shadow: 0 8px 20px rgba(0, 29, 61, 0.15);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Portfolio Card */
+        .port-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.6s var(--spring);
+            box-shadow: 0 10px 30px rgba(0,29,61,0.02);
+            cursor: pointer;
+            display: block; /* For animation */
+        }
+
+        .port-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,29,61,0.08);
+        }
+
+        /* Mockup Image Area */
+        .mock-img {
+            width: 100%;
+            height: 240px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: rgba(255,255,255,0.8);
+            transition: 0.5s ease;
+        }
+
+        .port-card:hover .mock-img {
+            transform: scale(1.05);
+        }
+
+        .img-wrapper {
+            overflow: hidden;
+            width: 100%;
+            height: 240px;
+        }
+
+        /* โทนสีจำลองสำหรับแต่ละหมวด */
+        .bg-brand { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
+        .bg-mkt { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+        .bg-apparel { background: linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%); }
+        .bg-digital { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
+        .bg-system { background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%); }
+        .bg-creative { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); }
+
+        .port-info {
+            padding: 24px;
+            background: #fff;
+            position: relative;
+            z-index: 2;
+        }
+
+        .port-category {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--luxury-gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .port-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--midnight-navy);
+            margin-bottom: 6px;
+        }
+
+        .port-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 300;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Floating Contact Bar */
+        .floating-cta {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 12px 12px 12px 30px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border: 1px solid var(--glass-border);
+            z-index: 2000;
+        }
+
+        .floating-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--midnight-navy);
+        }
+
+        .btn-primary {
+            background: var(--midnight-navy);
+            color: #fff;
+            padding: 14px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover { 
+            background: var(--luxury-gold);
+            transform: scale(1.02);
+        }
+
+        /* Animation class for filtering */
+        .hide { display: none !important; }
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 60px 20px; }
+            .filter-container { gap: 8px; justify-content: flex-start; overflow-x: auto; padding-bottom: 10px; flex-wrap: nowrap; -webkit-overflow-scrolling: touch; }
+            .filter-btn { white-space: nowrap; }
+            .floating-cta { width: 90%; justify-content: space-between; padding: 10px 10px 10px 20px; }
+            .btn-primary { padding: 12px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="ambient-bg"></div>
+
+<div class="container">
+    <header class="port-header">
+        <span class="pre-title">Selected Works</span>
+        <h1>ผลงานความสำเร็จ<br><b>จากสตูดิโอของเรา</b></h1>
+    </header>
+
+    <!-- Category Filters -->
+    <div class="filter-container" id="filter-buttons">
+        <button class="filter-btn active" data-filter="all">ทั้งหมด (All)</button>
+        <button class="filter-btn" data-filter="brand">Brand Identity</button>
+        <button class="filter-btn" data-filter="marketing">Marketing</button>
+        <button class="filter-btn" data-filter="apparel">Apparel</button>
+        <button class="filter-btn" data-filter="digital">Digital</button>
+        <button class="filter-btn" data-filter="system">Systems</button>
+        <button class="filter-btn" data-filter="creative">Creative</button>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <div class="portfolio-grid" id="portfolio-grid">
+        
+        <!-- Mock Item 1: Brand Identity -->
+        <div class="port-card" data-category="brand">
+            <div class="img-wrapper">
+                <div class="mock-img bg-brand">✦</div>
+            </div>
+            <div class="port-info">
+                <span class="port-category">Brand Identity</span>
+                <h3 class="port-title">Lumina Cafe Concept</h3>
+                <p class="port-desc">ออกแบบโลโก้และคู่มือการใช้แบรนด์ (CI Guideline) สำหรับคาเฟ่สไตล์มินิมอล</p>
+            </div>
+        </div>
+
+        <!-- Mock Item 2: Marketing -->
+        <div class="port-card" data-category="marketing">
+            <div class="img-wrapper">
+                <div class="mock-img bg-mkt">▤</div>
+            </div>
+            <div class="port-info">
+                <span class="port-category">Marketing Materials</span>
+                <h3 class="port-title">Summer Festival Banner</h3>
+                <p class="port-desc">ชุดสื่อโฆษณาออนไลน์และป้ายหน้าร้านสำหรับแคมเปญฤดูร้อน</p>
+            </div>
+        </div>
+
+        <!-- Mock Item 3: Apparel -->
+        <div class="port-card" data-category="apparel">
+            <div class="img-wrapper">
+                <div class="mock-img bg-apparel">👕</div>
+            </div>
+            <div class="port-info">
+                <span class="port-category">Apparel & Production</span>
+                <h3 class="port-title">Tech Corp Uniform</h3>
+                <p class="port-desc">ออกแบบและผลิตเสื้อโปโลพนักงานองค์กร พร้อมงานปักโลโก้คุณภาพสูง</p>
+            </div>
+        </div>
+
+        <!-- Mock Item 4: Digital Presence -->
+        <div class="port-card" data-category="digital">
+            <div class="img-wrapper">
+                <div class="mock-img bg-digital">🌐</div>
+            </div>
+            <div class="port-info">
+                <span class="port-category">Digital Presence</span>
+                <h3 class="port-title">Aura Skincare Website</h3>
+                <p class="port-desc">พัฒนาเว็บไซต์ E-Commerce สไตล์หรูหรา รองรับการสั่งซื้อผ่านมือถือ 100%</p>
+            </div>
+        </div>
+
+        <!-- Mock Item 5: Business Systems -->
+        <div class="port-card" data-category="system">
+            <div class="img-wrapper">
+                <div class="mock-img bg-system">⚙️</div>
+            </div>
+            <div class="port-info">
+                <span class="port-category">Business Systems</span>
+                <h3 class="port-title">Smart POS Integration</h3>
+                <p class="port-desc">ติดตั้งและวางระบบจัดการหน้าร้านเชื่อมต่อสต็อกหลังบ้านสำหรับร้านอาหาร</p>
+            </div>
+        </div>
+
+        <!-- Mock Item 6: Creative -->
+        <div class="port-card" data-category="creative">
+            <div class="img-wrapper">
+                <div class="mock-img bg-creative">♫</div>
+            </div>
+            <div class="port-info">
+                <span class="port-category">Creative Signature</span>
+                <h3 class="port-title">Sonic Branding Jingle</h3>
+                <p class="port-desc">ประพันธ์เพลงประกอบแบรนด์ (Audio Logo) เพื่อสร้างการจดจำให้ลูกค้า</p>
+            </div>
+        </div>
+
+        <!-- Mock Item 7: Brand Identity 2 -->
+        <div class="port-card" data-category="brand">
+            <div class="img-wrapper">
+                <div class="mock-img bg-brand">✦</div>
+            </div>
+            <div class="port-info">
+                <span class="port-category">Brand Identity</span>
+                <h3 class="port-title">Venture Capital Profile</h3>
+                <p class="port-desc">ออกแบบ Company Profile และนามบัตรผู้บริหารระดับสูง เน้นความน่าเชื่อถือ</p>
+            </div>
+        </div>
+
+        <!-- Mock Item 8: Digital Presence 2 -->
+        <div class="port-card" data-category="digital">
+            <div class="img-wrapper">
+                <div class="mock-img bg-digital">🌐</div>
+            </div>
+            <div class="port-info">
+                <span class="port-category">Digital Presence</span>
+                <h3 class="port-title">Real Estate Landing Page</h3>
+                <p class="port-desc">หน้า Sale Page สำหรับปิดการขายโครงการคอนโดมิเนียม พร้อมตั้งค่า Pixel</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Floating Contact Bar -->
+<div class="floating-cta">
+    <div class="floating-text">สนใจร่วมงานกับเรา?</div>
+    <a href="https://line.me/R/ti/p/@lookkyzero12" target="_blank" class="btn-primary">ปรึกษาโปรเจกต์ฟรี</a>
+</div>
+
+<script>
+    // Logic สำหรับระบบ Filter หมวดหมู่ผลงาน
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portCards = document.querySelectorAll('.port-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active class from all buttons
+            filterBtns.forEach(b => b.classList.remove('active'));
+            // Add active class to clicked button
+            btn.classList.add('active');
+
+            const filterValue = btn.getAttribute('data-filter');
+
+            portCards.forEach(card => {
+                // Reset animation
+                card.classList.remove('fade-in');
+                
+                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                    card.classList.remove('hide');
+                    // Add slight delay to trigger animation smoothly
+                    setTimeout(() => {
+                        card.classList.add('fade-in');
+                    }, 10);
+                } else {
+                    card.classList.add('hide');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
