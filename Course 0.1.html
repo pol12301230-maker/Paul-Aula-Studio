@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Aula Studio | Master Your Craft</title>
+    <!-- ใช้ Font IBM Plex Sans Thai เพื่อความ Modern และ Professional -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&family=IBM+Plex+Sans+Thai:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-light: #f8f9fa;
+            --midnight-navy: #001d3d;
+            --luxury-gold: #c5a059;
+            --apple-blue: #007aff;
+            --glass-white: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(0, 0, 0, 0.04);
+            --text-dark: #1d1d1f;
+            --text-muted: #86868b;
+            --spring: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif;
+            padding-bottom: 150px;
+            line-height: 1.6;
+        }
+
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 90% 10%, rgba(0, 122, 255, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 10% 90%, rgba(197, 160, 89, 0.05) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .shop-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .pre-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--luxury-gold);
+            margin-bottom: 20px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .shop-header h1 {
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 200;
+            letter-spacing: -2px;
+            color: var(--midnight-navy);
+            line-height: 1.1;
+        }
+
+        .shop-header h1 b {
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--midnight-navy) 0%, var(--luxury-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .shop-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 40px;
+            padding: 45px 35px;
+            cursor: pointer;
+            transition: all 0.6s var(--spring);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,29,61,0.03);
+        }
+
+        .shop-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 40px 80px rgba(0,29,61,0.08);
+            border-color: rgba(197, 160, 89, 0.3);
+        }
+
+        .shop-card.selected {
+            background: #ffffff;
+            border: 2px solid var(--luxury-gold);
+            box-shadow: 0 20px 50px rgba(197, 160, 89, 0.15);
+        }
+
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            background: rgba(0, 29, 61, 0.03);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 25px;
+            transition: 0.4s;
+            color: var(--midnight-navy);
+        }
+
+        .shop-card:hover .icon-box {
+            background: var(--midnight-navy);
+            color: #fff;
+            transform: rotate(-10deg);
+        }
+
+        .sub-eng {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--luxury-gold);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .shop-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--midnight-navy);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .scope-list {
+            list-style: none;
+            margin-top: auto;
+        }
+
+        .scope-list li {
+            font-size: 15px;
+            color: var(--text-muted);
+            font-weight: 300;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .scope-list li::before {
+            content: "→";
+            margin-right: 12px;
+            color: var(--luxury-gold);
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .checkout-bar {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%) translateY(150px);
+            background: var(--midnight-navy);
+            backdrop-filter: blur(20px);
+            color: #fff;
+            padding: 12px 12px 12px 35px;
+            border-radius: 100px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            z-index: 2000;
+            transition: 0.8s var(--spring);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .checkout-bar.active { transform: translateX(-50%) translateY(0); }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, var(--luxury-gold), #a6895d);
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(197, 160, 89, 0.2);
+        }
+
+        .btn-confirm:hover { 
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(197, 160, 89, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 60px 20px; }
+            .shop-grid { grid-template-columns: 1fr; }
+            .checkout-bar { width: 90%; justify-content: space-between; padding: 10px 10px 10px 25px; }
+            .btn-confirm { padding: 12px 25px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="ambient-bg"></div>
+
+<div class="container">
+    <header class="shop-header">
+        <span class="pre-title">Course Selection</span>
+        <h1>ยกระดับทักษะของคุณ<br><b>ด้วยระบบที่เหนือกว่า</b></h1>
+    </header>
+
+    <div class="shop-grid">
+        <!-- คอร์ส 1: AI Graphic Design -->
+        <div class="shop-card" onclick="toggleSelection(this, 'AI Graphic Design Pro')">
+            <div class="icon-box">🤖</div>
+            <span class="sub-eng">AI Graphic Design Pro</span>
+            <h3>อัจฉริยะงานกราฟิกด้วย AI</h3>
+            <ul class="scope-list">
+                <li>การเขียน Prompt ระดับสูง</li>
+                <li>Midjourney & Generative Fill</li>
+                <li>ลดเวลาทำงาน เพิ่มมูลค่าผลงาน</li>
+            </ul>
+        </div>
+
+        <!-- คอร์ส 2: Digital Photography -->
+        <div class="shop-card" onclick="toggleSelection(this, 'Digital Photography Mastery')">
+            <div class="icon-box">📸</div>
+            <span class="sub-eng">Photography Mastery</span>
+            <h3>ทักษะภาพถ่ายระดับสากล</h3>
+            <ul class="scope-list">
+                <li>เทคนิคการจัดแสงและ Composition</li>
+                <li>การใช้กล้อง Canon EOS R Series</li>
+                <li>Retouching สไตล์สตูดิโอ</li>
+            </ul>
+        </div>
+
+        <!-- คอร์ส 3: Branding & Identity Design -->
+        <div class="shop-card" onclick="toggleSelection(this, 'Branding Strategy')">
+            <div class="icon-box">💎</div>
+            <span class="sub-eng">Branding Strategy</span>
+            <h3>กลยุทธ์การสร้างแบรนด์</h3>
+            <ul class="scope-list">
+                <li>การออกแบบ Logo System</li>
+                <li>การสร้าง Brand Guidelines</li>
+                <li>Psychology of Colors</li>
+            </ul>
+        </div>
+
+        <!-- คอร์ส 4: Business Management -->
+        <div class="shop-card" onclick="toggleSelection(this, 'Retail Management')">
+            <div class="icon-box">📊</div>
+            <span class="sub-eng">Retail Management</span>
+            <h3>การบริหารร้านค้ายุคใหม่</h3>
+            <ul class="scope-list">
+                <li>ระบบสต็อกและการจัดการหน้าร้าน</li>
+                <li>การใช้ POS และ Data Analysis</li>
+                <li>เทคนิคการบริหารทีมงาน</li>
+            </ul>
+        </div>
+
+        <!-- คอร์ส 5: Digital Marketing -->
+        <div class="shop-card" onclick="toggleSelection(this, 'Creative Marketing')">
+            <div class="icon-box">🚀</div>
+            <span class="sub-eng">Creative Marketing</span>
+            <h3>การตลาดออนไลน์เชิงสร้างสรรค์</h3>
+            <ul class="scope-list">
+                <li>Content Strategy สำหรับเพจ</li>
+                <li>การยิงโฆษณาแบบแม่นยำ</li>
+                <li>Building Online Presence</li>
+            </ul>
+        </div>
+
+        <!-- คอร์ส 6: Apparel Production -->
+        <div class="shop-card" onclick="toggleSelection(this, 'Fashion Production')">
+            <div class="icon-box">🧵</div>
+            <span class="sub-eng">Fashion Production</span>
+            <h3>เจาะลึกงานผลิตเสื้อผ้า</h3>
+            <ul class="scope-list">
+                <li>เทคนิคงานปักและสกรีนชั้นสูง</li>
+                <li>การคัดเลือกเนื้อผ้าและวัสดุ</li>
+                <li>ระบบการผลิตแบบอุตสาหกรรม</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="checkout-bar" id="checkout">
+    <div style="font-size: 13px; font-weight: 300; letter-spacing: 1px;">
+        คอร์สที่เลือก: <span id="count" style="font-weight: 600; color: var(--luxury-gold);">0</span>
+    </div>
+    <a href="javascript:void(0)" onclick="sendToLine()" class="btn-confirm">สมัครเรียน / ปรึกษาคอร์ส</a>
+</div>
+
+<script>
+let selectedItems = new Set();
+
+function toggleSelection(card, title) {
+    card.classList.toggle('selected');
+    if (selectedItems.has(title)) {
+        selectedItems.delete(title);
+    } else {
+        selectedItems.add(title);
+    }
+    
+    const checkout = document.getElementById('checkout');
+    const count = document.getElementById('count');
+    count.innerText = selectedItems.size;
+
+    if (selectedItems.size > 0) {
+        checkout.classList.add('active');
+    } else {
+        checkout.classList.remove('active');
+    }
+}
+
+function sendToLine() {
+    const list = Array.from(selectedItems).join(', ');
+    const text = `สวัสดีครับ สนใจสมัครเรียนคอร์สของ Paul Aula Studio ในหัวข้อ: ${list}`;
+    const lineUrl = `https://line.me/R/ti/p/@800gljgf?text=${encodeURIComponent(text)}`;
+    window.location.href = lineUrl;
+}
+</script>
+
+</body>
+</html>

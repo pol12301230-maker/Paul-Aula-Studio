@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paul Aula Studio | Where Legacy Meets Systematic Precision</title>
+    <!-- 6. เปลี่ยนเป็น IBM Plex Sans Thai เพื่อความ Modern และ Corporate Luxury -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&family=IBM+Plex+Sans+Thai:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #f8f9fa;
+            --midnight-navy: #001d3d;
+            --luxury-gold: #c5a059;
+            --apple-blue: #007aff;
+            --glass-white: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(0, 0, 0, 0.04);
+            --text-dark: #1d1d1f;
+            --text-muted: #86868b;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-family: 'Inter', 'IBM Plex Sans Thai', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .ambient-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 80% 20%, rgba(0, 122, 255, 0.04) 0%, transparent 40%),
+                radial-gradient(circle at 15% 80%, rgba(197, 160, 89, 0.06) 0%, transparent 40%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 140px 24px;
+        }
+
+        header { text-align: center; margin-bottom: 110px; }
+
+        .pre-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--luxury-gold);
+            margin-bottom: 24px;
+            display: block;
+            font-weight: 600;
+        }
+
+        /* 1. Headline ใหม่: Where Legacy Meets Systematic Precision */
+        .hero-title {
+            font-size: clamp(2.8rem, 7vw, 4.8rem);
+            font-weight: 200;
+            letter-spacing: -3px;
+            line-height: 1.05;
+            color: var(--midnight-navy);
+        }
+
+        .hero-title b {
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--midnight-navy) 0%, var(--luxury-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 3. Director Card with Glow & Life */
+        .director-wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 90px;
+        }
+
+        .director-card {
+            position: relative; /* สำหรับ pseudo glow */
+            overflow: hidden;
+            background: var(--glass-white);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 90px 60px;
+            border-radius: 56px;
+            text-align: center;
+            width: 100%;
+            max-width: 760px;
+            box-shadow: 0 40px 80px rgba(0,29,61,0.04);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .director-card::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 320px;
+            height: 320px;
+            background: radial-gradient(
+                circle,
+                rgba(0,122,255,0.08),
+                transparent 70%
+            );
+            pointer-events: none;
+        }
+
+        .director-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 50px 100px rgba(0,29,61,0.07);
+        }
+
+        /* 4. Role Badge ใหม่: Apple Keynote Style */
+        .role-badge {
+            background: rgba(0,122,255,0.06);
+            border: 1px solid rgba(0,122,255,0.08);
+            padding: 8px 18px;
+            border-radius: 999px;
+            color: var(--apple-blue);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+
+        /* 2. ชื่อ CEO ใหม่: Navy → Blue → Gold Effect */
+        .director-card h2 {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            font-weight: 600;
+            letter-spacing: -2px;
+            margin-bottom: 14px;
+            background: linear-gradient(
+                135deg,
+                #001d3d 0%,
+                #2d5fa8 35%,
+                #c5a059 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .statement-th {
+            font-size: 17px;
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* 5. Team Hierarchy: Strategic Core */
+        .grid-system {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            margin-bottom: 60px;
+            align-items: center;
+        }
+
+        .glass-node {
+            background: #ffffff;
+            border: 1px solid var(--glass-border);
+            padding: 55px 40px;
+            border-radius: 44px;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.02);
+        }
+
+        /* เน้นความสำคัญของ node กลาง */
+        .glass-node:nth-child(2) {
+            transform: translateY(-12px);
+            border-color: rgba(197,160,89,0.15);
+            box-shadow: 0 25px 50px rgba(197,160,89,0.06);
+        }
+
+        .glass-node:hover {
+            transform: translateY(-20px) !important;
+            border-color: var(--apple-blue);
+            box-shadow: 0 30px 60px rgba(0,122,255,0.06);
+        }
+
+        .node-label {
+            font-size: 9px;
+            color: var(--luxury-gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            display: block;
+            font-weight: 700;
+        }
+
+        .node-title { 
+            font-size: 24px; 
+            margin-bottom: 12px; 
+            font-weight: 600; 
+            color: var(--midnight-navy);
+            letter-spacing: -1px;
+        }
+        
+        .node-desc { font-size: 15px; color: var(--text-dim); font-weight: 300; }
+
+        /* Infrastructure: Frosted Minimal */
+        .infra-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .infra-mini {
+            background: rgba(255,255,255,0.85);
+            border: 1px solid var(--glass-border);
+            padding: 35px 20px;
+            border-radius: 28px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .infra-mini:hover {
+            background: #ffffff;
+            border-color: var(--luxury-gold);
+            transform: scale(1.05);
+        }
+
+        .infra-mini h4 { 
+            font-size: 10px; 
+            color: var(--text-muted); 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+        
+        .infra-mini p { font-size: 15px; color: var(--midnight-navy); font-weight: 600; }
+
+        /* Smooth Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 900px) {
+            .grid-system, .infra-row { grid-template-columns: 1fr; }
+            .glass-node:nth-child(2) { transform: none; }
+            .hero-title { font-size: 2.5rem; letter-spacing: -1.5px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="ambient-bg"></div>
+
+<div class="container">
+    <header>
+        <span class="pre-title reveal">Paul Aula Design .Studio</span>
+        <h1 class="hero-title reveal">
+            Driven by Expertise.<br>
+            <b>Defined by Quality.</b>
+	        
+        </h1>
+    </header>
+
+    <div class="director-wrap reveal">
+        <div class="director-card">
+            <span class="role-badge">Founder & Chief Executive Officer - CEO</span>
+            <h2>Paul Poramet J.</h2>
+            <p class="statement-th">ผู้ก่อตั้ง และ ประธานบริหาร</p>
+        </div>
+    </div>
+
+    <div class="grid-system">
+        <div class="glass-node reveal" style="transition-delay: 0.1s;">
+            <span class="node-label">Chief Operating Officer - COO</span>
+            <h3 class="node-title">Chotikan J.</h3>
+            <p class="node-desc">ที่ปรึกษาการบริหาร</p>
+        </div>
+        <div class="glass-node reveal" style="transition-delay: 0.2s;">
+            <span class="node-label">Management Consultant - CM</span>
+            <h3 class="node-title">Phakkawan J.</h3>
+            <p class="node-desc">ที่ปรึกษาการบริหาร</p>
+        </div>
+        <div class="glass-node reveal" style="transition-delay: 0.3s;">
+            <span class="node-label">Managing Director - MD</span>
+            <h3 class="node-title">Jariya J.</h3>
+            <p class="node-desc">กรรมการผู้จัดการ</p>
+        </div>
+    </div>
+
+    <div class="infra-row">
+        <div class="infra-mini reveal" style="transition-delay: 0.4s;">
+            <h4>Senior Advisor</h4>
+            <p>Boonman J.</p>
+        </div>
+        <div class="infra-mini reveal" style="transition-delay: 0.5s;">
+            <h4>Administration</h4>
+            <p>Nutthakan J.</p>
+        </div>
+        <div class="infra-mini reveal" style="transition-delay: 0.6s;">
+            <h4>Marketing</h4>
+            <p>Nichanan J.</p>
+        </div>
+        <div class="infra-mini reveal" style="transition-delay: 0.7s;">
+            <h4>Production</h4>
+            <p>Rachata J.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
